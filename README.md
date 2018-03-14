@@ -20,13 +20,26 @@ composer require sebastiaanluca/php-stub-generator
 
 ## Usage
 
+To generate a new file based on a given stub template. This method replaces the placeholders with the defined values.
+
 ``` php
 $stub = new StubGenerator(
     __DIR__ . '/stubs/migration.stub',
     $target
 );
-
 $stub->render([
+    ':CLASS_NAME:' => 'CreateUsersTable',
+    ':TABLE_NAME:' => 'users',
+]);
+```
+
+Alternatively you can return the generatted file contant as a string. Useful for if you wish to dynamically generate larger files based on nested stubs.
+``` php
+$stub = new StubGenerator(
+    __DIR__ . '/stubs/migration.stub',
+    $target
+);
+$string = $stub->toString()->render([
     ':CLASS_NAME:' => 'CreateUsersTable',
     ':TABLE_NAME:' => 'users',
 ]);
