@@ -46,4 +46,16 @@ class StubGeneratorTest extends TestCase
         $this->assertNotContains(':CLASS_NAME:', $file);
         $this->assertNotContains(':TABLE_NAME:', $file);
     }
+
+    public function testItReturnsAStringOfFileContents()
+    {
+        $stub = new StubGenerator(__DIR__ . '/../stubs/migration.stub');
+
+        $string = $stub->toString()->render([
+            ':CLASS_NAME:' => 'CreateNotificationsTable',
+            ':TABLE_NAME:' => 'notifications',
+        ]);
+
+        $this->assertInternalType('string', $string);
+    }
 }
